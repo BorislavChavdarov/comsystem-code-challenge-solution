@@ -1,7 +1,10 @@
 package com.comsystem.homework.robot;
 
 
+import com.comsystem.homework.model.RobotAction;
 import com.comsystem.homework.model.RobotPlan;
+
+import java.util.ArrayList;
 
 public class RobotOperations {
 
@@ -15,8 +18,25 @@ public class RobotOperations {
      * @see RobotPlan
      */
     public RobotPlan excavateStonesForDays(int days) {
-        // TODO
-        return null;
+        int startDigging = (int) Math.ceil( (double) days/2);
+        int robotsCount = 1;
+        int stonesCollected = 0;
+        ArrayList<String> l = new ArrayList<String>();
+        ArrayList<RobotAction> actionsList = new ArrayList<RobotAction>();
+        for (int i = 1; i <= days ; i++) {
+
+            if (i<startDigging){
+                actionsList.add(RobotAction.CLONE);
+                robotsCount++;
+
+            } else {
+                actionsList.add(RobotAction.DIG);
+                stonesCollected+=robotsCount;
+            }
+        }
+        RobotPlan res = new RobotPlan(days, stonesCollected, actionsList);
+
+        return res;
     }
 
     /**
