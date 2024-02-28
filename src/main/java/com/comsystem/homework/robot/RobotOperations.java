@@ -50,8 +50,30 @@ public class RobotOperations {
      * @see RobotPlan
      */
     public RobotPlan daysRequiredToCollectStones(int numberOfStones) {
-        // TODO
-        return null;
+        int startDigging = (int) Math.round(Math.sqrt(numberOfStones));
+
+        int robotsCount = 1;
+        int stonesCollected = 0;
+        int daysNeeded = 0;
+        ArrayList<String> l = new ArrayList<String>();
+        ArrayList<RobotAction> actionsList = new ArrayList<RobotAction>();
+        for (int i = 1; i <= startDigging*2; i++) {
+            daysNeeded++;
+            if (i<startDigging){
+                actionsList.add(RobotAction.CLONE);
+                robotsCount++;
+
+            } else {
+                actionsList.add(RobotAction.DIG);
+                stonesCollected+=robotsCount;
+            }
+            if (stonesCollected>=numberOfStones){
+                break;
+            }
+        }
+        RobotPlan res = new RobotPlan(daysNeeded, numberOfStones, actionsList);
+
+        return res;
     }
 
 }
